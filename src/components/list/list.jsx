@@ -2,13 +2,13 @@ import { usersMessages } from "../../constants/users-messages";
 
 export const List = () => (
   <ol>
-    {usersMessages.map((usersMessage) => (
-      <li key={usersMessage.id}>
+    {usersMessages.map(({ id, userId, title, body }) => (
+      <li key={id}>
         <ul>
-          <li>{usersMessage.id}</li>
-          <li>{usersMessage.userId}</li>
-          <li>{usersMessage.title}</li>
-          <li>{usersMessage.body}</li>
+          <li>{id}</li>
+          <li>{userId}</li>
+          <li>{title}</li>
+          <li>{body}</li>
         </ul>
       </li>
     ))}
