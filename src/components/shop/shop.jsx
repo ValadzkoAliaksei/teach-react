@@ -7,25 +7,29 @@ import { products } from "../../constants/products";
 
 import style from "./shop.module.css";
 
+const INITIAL_STATE = {
+  tv: { value: 0, sumCost: 0 },
+  fridge: { value: 0, sumCost: 0 },
+  washingMashine: { value: 0, sumCost: 0 },
+};
+
 export class Shop extends React.Component {
-  constructor() {
-    super();
-    this.state = [
-      { name: "tv", number: 0 },
-      { name: "fridge", number: 0 },
-      { name: "washingMashine", number: 0 },
-    ];
-    this.handleChange = this.handleChange.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = INITIAL_STATE;
+    this.handleBuy = this.handleBuy.bind(this);
   }
 
-  handleChange(id, value) {
-    const newState = this.state.find((item) => item.name === id);
-    newState.number = value;
-    this.setState((prevState) => [...prevState, newState]);
+  handleBuy(productId, value, sumCost) {
+    this.setState({
+      [productId]: {
+        value: this.state[productId].value + value,
+        sumCost: this.state[productId].sumCost + sumCost,
+      },
+    });
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className={style.shop}>
         {products.map((product) => (
@@ -33,10 +37,10 @@ export class Shop extends React.Component {
             product={product}
             key={product.key}
             handleChange={this.handleChange}
+            handleBuy={this.handleBuy}
           />
         ))}
-
-        <Cart />
+        <Cart products={this.state} />
       </div>
     );
   }
