@@ -1,0 +1,47 @@
+import React from "react";
+
+import { Cart } from "./cart";
+import { Product } from "./product";
+
+import { products } from "../../constants/products";
+
+import style from "./shop.module.css";
+
+const INITIAL_STATE = {
+  tv: { value: 0, sumCost: 0 },
+  fridge: { value: 0, sumCost: 0 },
+  washingMashine: { value: 0, sumCost: 0 },
+};
+
+export class Shop extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = INITIAL_STATE;
+    this.handleBuy = this.handleBuy.bind(this);
+  }
+
+  handleBuy(productId, value, sumCost) {
+    this.setState({
+      [productId]: {
+        value: this.state[productId].value + value,
+        sumCost: this.state[productId].sumCost + sumCost,
+      },
+    });
+  }
+
+  render() {
+    return (
+      <div className={style.shop}>
+        {products.map((product) => (
+          <Product
+            product={product}
+            key={product.key}
+            handleChange={this.handleChange}
+            handleBuy={this.handleBuy}
+          />
+        ))}
+        <Cart products={this.state} />
+      </div>
+    );
+  }
+}
