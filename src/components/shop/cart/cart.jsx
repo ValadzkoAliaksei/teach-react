@@ -1,16 +1,32 @@
 import React from "react";
 
+import { Modal } from "../../modal";
+
 import style from "./cart.module.css";
 
+const SuccessMessage = () => <div>Покупка совершена успешно!</div>;
+
+const DeniedMessage = () => <div>Недостаточно денег!</div>;
 export class Cart extends React.Component {
-  checkCash = (sum) => {
-    console.log(sum);
+  constructor() {
+    super();
+    this.state = {
+      isModalVisible: false,
+    };
+  }
+
+  checkCash = () => {
+    if (this.props.products.sum < 3000) {
+      this.props.clearState();
+    }
+    this.setState({ isModalVisible: true });
   };
+
+  closeModal = () => {
+    this.setState({ isModalVisible: false });
+  };
+
   render() {
-    const sum =
-      this.props.products.washingMashine.sumCost +
-      this.props.products.fridge.sumCost +
-      this.props.products.tv.sumCost;
     return (
       <div>
         <div>
@@ -31,12 +47,21 @@ export class Cart extends React.Component {
         <div>
           Всего:
           <span>
-            {sum}
+            {this.props.products.sum}
             евро
           </span>
         </div>
 
-        <button onClick={() => this.checkCash(sum)}>Рассчитаться</button>
+        <button onClick={this.checkCash}>Рассчитаться</button>
+        {this.state.isModalVisible && (
+          <Modal closeModal={this.closeModal}>
+            {this.props.products.sum > 3000 ? (
+              <DeniedMessage />
+            ) : (
+              <SuccessMessage />
+            )}
+          </Modal>
+        )}
       </div>
     );
   }

@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   tv: { value: 0, sumCost: 0 },
   fridge: { value: 0, sumCost: 0 },
   washingMashine: { value: 0, sumCost: 0 },
+  sum: 0,
 };
 
 export class Shop extends React.Component {
@@ -26,10 +27,16 @@ export class Shop extends React.Component {
         value: this.state[productId].value + value,
         sumCost: this.state[productId].sumCost + sumCost,
       },
+      sum: this.state.sum + sumCost,
     });
   }
 
+  clearState = () => {
+    this.setState(INITIAL_STATE);
+  };
+
   render() {
+    // throw new Error("hah");
     return (
       <div className={style.shop}>
         {products.map((product) => (
@@ -40,7 +47,7 @@ export class Shop extends React.Component {
             handleBuy={this.handleBuy}
           />
         ))}
-        <Cart products={this.state} />
+        <Cart clearState={this.clearState} products={this.state} />
       </div>
     );
   }

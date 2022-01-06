@@ -7,6 +7,7 @@ import { Shop } from "../shop";
 import logo from "./assets/logo.svg";
 
 import "./app.css";
+import { ErrorBoundary } from "../error-boundary";
 
 export const App = () => {
   const messagesVisible = false;
@@ -22,7 +23,11 @@ export const App = () => {
       {logoVisible && <img src={logo} alt="лого" />}
       {listVisible && <List />}
       {tableVisible && <Table />}
-      {shopVisible && <Shop />}
+      {shopVisible && (
+        <ErrorBoundary>
+          <Shop />
+        </ErrorBoundary>
+      )}
     </>
   );
 };
