@@ -37,7 +37,7 @@ export class Product extends React.Component {
         <div>
           Марка: <>{this.props.product.description}</>
         </div>
-        <img src={this.props.product.imgSrc} alt="foto" />
+        <img src={this.props.product.imgSrc} width={300} alt="foto" />
         <div>
           Стоимость: <>{this.props.product.cost}евро.</>
         </div>
