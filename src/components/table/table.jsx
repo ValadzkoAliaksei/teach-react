@@ -1,6 +1,6 @@
-import { TableRow } from "./table-row";
+import { TableRow } from './table-row';
 
-import { usersMessages } from "../../constants/users-messages";
+import { usersMessages } from '../../constants/users-messages';
 
 export const Table = () => (
   <table>

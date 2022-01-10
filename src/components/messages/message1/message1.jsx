@@ -1,19 +1,21 @@
-import React from "react";
+import React from 'react';
 
 export class Message1 extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     return (
       <>
-        <h2 align="center">
-          14, 15, 16, апреля! Праздничное открытие! Магазин промтоваров
-          Галамарт!
-        </h2>
+        <h2 align="center">14, 15, 16, апреля! Праздничное открытие! Магазин промтоваров Галамарт!</h2>
         <p>
           <font size="-1">
             <b>В честь праздника:</b>
           </font>
         </p>
-        <p>
+        <div>
           <font face="Tahoma" size="-1">
             <p>
               <strong>
@@ -44,7 +46,7 @@ export class Message1 extends React.Component {
               </em>
             </p>
           </font>
-        </p>
+        </div>
       </>
     );
   }

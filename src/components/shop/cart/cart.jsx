@@ -1,12 +1,15 @@
-import React from "react";
+/* eslint-disable react/destructuring-assignment */
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { Modal } from "../../modal";
+import { Modal } from '../../modal';
 
-import style from "./cart.module.css";
+import style from './cart.module.css';
 
 const SuccessMessage = () => <div>Покупка совершена успешно!</div>;
 
 const DeniedMessage = () => <div>Недостаточно денег!</div>;
+
 export class Cart extends React.Component {
   constructor() {
     super();
@@ -52,17 +55,34 @@ export class Cart extends React.Component {
           </span>
         </div>
 
-        <button onClick={this.checkCash}>Рассчитаться</button>
+        <button onClick={this.checkCash} type="button">
+          Рассчитаться
+        </button>
         {this.state.isModalVisible && (
           <Modal closeModal={this.closeModal}>
-            {this.props.products.sum > 3000 ? (
-              <DeniedMessage />
-            ) : (
-              <SuccessMessage />
-            )}
+            {this.props.products.sum > 3000 ? <DeniedMessage /> : <SuccessMessage />}
           </Modal>
         )}
       </div>
     );
   }
 }
+
+Cart.propTypes = {
+  clearState: PropTypes.func.isRequired,
+  products: PropTypes.shape({
+    tv: PropTypes.shape({
+      value: PropTypes.number,
+      sumCost: PropTypes.number,
+    }),
+    fridge: PropTypes.shape({
+      value: PropTypes.number,
+      sumCost: PropTypes.number,
+    }),
+    washingMashine: PropTypes.shape({
+      value: PropTypes.number,
+      sumCost: PropTypes.number,
+    }),
+    sum: PropTypes.number,
+  }).isRequired,
+};

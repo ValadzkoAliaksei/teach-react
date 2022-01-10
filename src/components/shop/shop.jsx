@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { Cart } from "./cart";
-import { Product } from "./product";
+import { Cart } from './cart';
+import { Product } from './product';
 
-import { products } from "../../constants/products";
+import { products } from '../../constants/products';
 
-import style from "./shop.module.css";
+import style from './shop.module.css';
 
 const INITIAL_STATE = {
   tv: { value: 0, sumCost: 0 },
@@ -22,13 +22,13 @@ export class Shop extends React.Component {
   }
 
   handleBuy(productId, value, sumCost) {
-    this.setState({
+    this.setState((prevState) => ({
       [productId]: {
-        value: this.state[productId].value + value,
-        sumCost: this.state[productId].sumCost + sumCost,
+        value: prevState[productId].value + value,
+        sumCost: prevState[productId].sumCost + sumCost,
       },
-      sum: this.state.sum + sumCost,
-    });
+      sum: prevState.sum + sumCost,
+    }));
   }
 
   clearState = () => {
@@ -40,12 +40,7 @@ export class Shop extends React.Component {
     return (
       <div className={style.shop}>
         {products.map((product) => (
-          <Product
-            product={product}
-            key={product.key}
-            handleChange={this.handleChange}
-            handleBuy={this.handleBuy}
-          />
+          <Product product={product} key={product.key} handleChange={this.handleChange} handleBuy={this.handleBuy} />
         ))}
         <Cart clearState={this.clearState} products={this.state} />
       </div>

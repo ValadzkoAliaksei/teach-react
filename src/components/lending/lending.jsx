@@ -1,9 +1,9 @@
-import { Article } from "./article";
-import { Aside } from "./aside";
+import { Article } from './article';
+import { Aside } from './aside';
 
-import { lendingText } from "../../constants/lending-text";
+import { lendingText } from '../../constants/lending-text';
 
-import styles from "./lending.module.css";
+import styles from './lending.module.css';
 
 export const Lending = () => (
   <div className={styles.lending}>
