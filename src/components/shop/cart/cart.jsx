@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -19,8 +18,9 @@ export class Cart extends React.Component {
   }
 
   checkCash = () => {
-    if (this.props.products.sum < 3000) {
-      this.props.clearState();
+    const { products, clearState } = this.props;
+    if (products.sum < 3000) {
+      clearState();
     }
     this.setState({ isModalVisible: true });
   };
@@ -30,27 +30,31 @@ export class Cart extends React.Component {
   };
 
   render() {
+    const {
+      products: { tv, fridge, washingMashine, sum },
+    } = this.props;
+    const { isModalVisible } = this.state;
     return (
       <div>
         <div>
-          <div>{`Телевизоров: ${this.props.products.tv.value}штук`}</div>
-          <div>{`На стоимость: ${this.props.products.tv.sumCost}евро`}</div>
+          <div>{`Телевизоров: ${tv.value}штук`}</div>
+          <div>{`На стоимость: ${tv.sumCost}евро`}</div>
         </div>
         <br />
         <div>
-          <div>{`Холодильников: ${this.props.products.fridge.value}штук`}</div>
-          <div>{`На стоимость: ${this.props.products.fridge.sumCost}евро`}</div>
+          <div>{`Холодильников: ${fridge.value}штук`}</div>
+          <div>{`На стоимость: ${fridge.sumCost}евро`}</div>
         </div>
         <br />
         <div>
-          <div>{`Стиральных машин: ${this.props.products.washingMashine.value}штук`}</div>
-          <div>{`На стоимость: ${this.props.products.washingMashine.sumCost}евро`}</div>
+          <div>{`Стиральных машин: ${washingMashine.value}штук`}</div>
+          <div>{`На стоимость: ${washingMashine.sumCost}евро`}</div>
         </div>
         <br />
         <div>
           Всего:
           <span>
-            {this.props.products.sum}
+            {sum}
             евро
           </span>
         </div>
@@ -58,10 +62,8 @@ export class Cart extends React.Component {
         <button onClick={this.checkCash} type="button">
           Рассчитаться
         </button>
-        {this.state.isModalVisible && (
-          <Modal closeModal={this.closeModal}>
-            {this.props.products.sum > 3000 ? <DeniedMessage /> : <SuccessMessage />}
-          </Modal>
+        {isModalVisible && (
+          <Modal closeModal={this.closeModal}>{sum > 3000 ? <DeniedMessage /> : <SuccessMessage />}</Modal>
         )}
       </div>
     );
