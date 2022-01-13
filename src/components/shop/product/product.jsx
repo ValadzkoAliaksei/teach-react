@@ -1,8 +1,9 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import style from "./product.module.css";
+import style from './product.module.css';
 
-const INITIAL_STATE = { value: "0", sumCost: "0" };
+const INITIAL_STATE = { value: '0', sumCost: '0' };
 
 export class Product extends React.Component {
   constructor(props) {
@@ -13,45 +14,46 @@ export class Product extends React.Component {
   }
 
   handleChange(e) {
+    const { product } = this.props;
     this.setState({
       value: e.target.value,
-      sumCost: +e.target.value * this.props.product.cost,
+      sumCost: +e.target.value * product.cost,
     });
   }
 
   onBuy() {
-    this.props.handleBuy(
-      this.props.product.id,
-      +this.state.value,
-      +this.state.sumCost
-    );
+    const { value, sumCost } = this.state;
+    const { handleBuy, product } = this.props;
+    handleBuy(product.id, +value, +sumCost);
     this.setState(INITIAL_STATE);
   }
 
   render() {
+    const { value, sumCost } = this.state;
+    const { product } = this.props;
     return (
       <div className={style.product}>
-        <div>
-          Товар: <>{this.props.product.title}</>
-        </div>
-        <div>
-          Марка: <>{this.props.product.description}</>
-        </div>
-        <img src={this.props.product.imgSrc} width={300} alt="foto" />
-        <div>
-          Стоимость: <>{this.props.product.cost}евро.</>
-        </div>
-        <input
-          type="number"
-          name={this.props.product.id}
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
-        <div>
-          Общая стоимость: <>{this.state.sumCost}евро.</>
-        </div>
-        <button onClick={this.onBuy}>Купить</button>
+        <div>Товар: {product.title}</div>
+        <div>Марка: {product.description}</div>
+        <img src={product.imgSrc} width={300} alt="foto" />
+        <div>Стоимость: {product.cost}евро.</div>
+        <input type="number" name={product.id} value={value} onChange={this.handleChange} />
+        <div>Общая стоимость: {sumCost}евро.</div>
+        <button onClick={this.onBuy} type="button">
+          Купить
+        </button>
       </div>
     );
   }
 }
+
+Product.propTypes = {
+  product: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    imgSrc: PropTypes.string,
+    cost: PropTypes.number,
+    id: PropTypes.string,
+  }).isRequired,
+  handleBuy: PropTypes.func.isRequired,
+};

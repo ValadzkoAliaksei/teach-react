@@ -7,10 +7,10 @@
   margin: 0 auto;
   display: grid;
   grid-template-areas:
-    "header header"
-    "main main"
-    "main main"
-    "footer footer";
+    'header header'
+    'main main'
+    'main main'
+    'footer footer';
   grid-template-rows: 30% 20% 30% 20%;
   height: 100vh;
   grid-gap: 8px;
@@ -34,8 +34,8 @@
 .header {
   display: grid;
   grid-template-areas:
-    "bloc block"
-    "nav  nav";
+    'bloc block'
+    'nav  nav';
   grid-template-columns: 80% 20%;
   grid-template-rows: 80% 20%;
   background-color: darkcyan;

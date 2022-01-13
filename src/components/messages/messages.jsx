@@ -1,5 +1,5 @@
-import { Message1 } from "./message1";
-import { Message2 } from "./message2";
+import { Message1 } from './message1';
+import { Message2 } from './message2';
 
 export const Messages = () => (
   <>

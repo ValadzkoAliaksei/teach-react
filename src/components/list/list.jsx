@@ -1,4 +1,4 @@
-import { usersMessages } from "../../constants/users-messages";
+import { usersMessages } from '../../constants/users-messages';
 
 export const List = () => (
   <ol>

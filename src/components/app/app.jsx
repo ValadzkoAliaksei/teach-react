@@ -1,13 +1,13 @@
-import { Lending } from "../lending";
-import { Messages } from "../messages";
-import { List } from "../list";
-import { Table } from "../table";
-import { Shop } from "../shop";
+import { Lending } from '../lending';
+import { Messages } from '../messages';
+import { List } from '../list';
+import { Table } from '../table';
+import { Shop } from '../shop';
 
-import logo from "./assets/logo.svg";
+import logo from './assets/logo.svg';
 
-import "./app.css";
-import { ErrorBoundary } from "../error-boundary";
+import './app.css';
+import { ErrorBoundary } from '../error-boundary';
 
 export const App = () => {
   const messagesVisible = false;
