@@ -82,7 +82,7 @@ Cart.propTypes = {
     }),
     fridge: PropTypes.shape({
       value: PropTypes.number,
-      sumCost: PropTypes.number.isRequired,
+      sumCost: PropTypes.number,
     }),
     washingMashine: PropTypes.shape({
       value: PropTypes.number,
