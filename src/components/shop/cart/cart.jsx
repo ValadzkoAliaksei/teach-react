@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Modal } from '../../modal';
+import { Watch } from '../watch';
 
 import style from './cart.module.css';
 
@@ -32,10 +33,12 @@ export class Cart extends React.Component {
   render() {
     const {
       products: { tv, fridge, washingMashine, sum },
+      clearState,
     } = this.props;
     const { isModalVisible } = this.state;
     return (
       <div>
+        <Watch clearState={clearState} />
         <div>
           <div>{`Телевизоров: ${tv.value}штук`}</div>
           <div>{`На стоимость: ${tv.sumCost}евро`}</div>
