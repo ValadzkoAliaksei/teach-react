@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Modal } from '../../modal';
@@ -10,68 +10,53 @@ const SuccessMessage = () => <div>Покупка совершена успешн
 
 const DeniedMessage = () => <div>Недостаточно денег!</div>;
 
-export class Cart extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isModalVisible: false,
-    };
-  }
+export const Cart = ({ products: { tv, fridge, washingMashine, sum }, clearState }) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  checkCash = () => {
-    const { products, clearState } = this.props;
-    if (products.sum < 3000) {
+  const checkCash = () => {
+    if (sum < 3000) {
       clearState();
     }
-    this.setState({ isModalVisible: true });
+    setIsModalVisible(true);
   };
 
-  closeModal = () => {
-    this.setState({ isModalVisible: false });
+  const closeModal = () => {
+    setIsModalVisible(false);
   };
 
-  render() {
-    const {
-      products: { tv, fridge, washingMashine, sum },
-      clearState,
-    } = this.props;
-    const { isModalVisible } = this.state;
-    return (
+  return (
+    <div>
+      <Watch clearState={clearState} />
       <div>
-        <Watch clearState={clearState} />
-        <div>
-          <div>{`Телевизоров: ${tv.value}штук`}</div>
-          <div>{`На стоимость: ${tv.sumCost}евро`}</div>
-        </div>
-        <br />
-        <div>
-          <div>{`Холодильников: ${fridge.value}штук`}</div>
-          <div>{`На стоимость: ${fridge.sumCost}евро`}</div>
-        </div>
-        <br />
-        <div>
-          <div>{`Стиральных машин: ${washingMashine.value}штук`}</div>
-          <div>{`На стоимость: ${washingMashine.sumCost}евро`}</div>
-        </div>
-        <br />
-        <div>
-          Всего:
-          <span>
-            {sum}
-            евро
-          </span>
-        </div>
-
-        <button onClick={this.checkCash} type="button">
-          Рассчитаться
-        </button>
-        {isModalVisible && (
-          <Modal closeModal={this.closeModal}>{sum > 3000 ? <DeniedMessage /> : <SuccessMessage />}</Modal>
-        )}
+        <div>{`Телевизоров: ${tv.value}штук`}</div>
+        <div>{`На стоимость: ${tv.sumCost}евро`}</div>
       </div>
-    );
-  }
-}
+      <br />
+      <div>
+        <div>{`Холодильников: ${fridge.value}штук`}</div>
+        <div>{`На стоимость: ${fridge.sumCost}евро`}</div>
+      </div>
+      <br />
+      <div>
+        <div>{`Стиральных машин: ${washingMashine.value}штук`}</div>
+        <div>{`На стоимость: ${washingMashine.sumCost}евро`}</div>
+      </div>
+      <br />
+      <div>
+        Всего:
+        <span>
+          {sum}
+          евро
+        </span>
+      </div>
+
+      <button onClick={checkCash} type="button">
+        Рассчитаться
+      </button>
+      {isModalVisible && <Modal closeModal={closeModal}>{sum > 3000 ? <DeniedMessage /> : <SuccessMessage />}</Modal>}
+    </div>
+  );
+};
 
 Cart.propTypes = {
   clearState: PropTypes.func.isRequired,

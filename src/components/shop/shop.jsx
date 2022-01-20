@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 
 import { Cart } from './cart';
 import { Product } from './product';
@@ -14,36 +14,30 @@ const INITIAL_STATE = {
   sum: 0,
 };
 
-export class Shop extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = INITIAL_STATE;
-    this.handleBuy = this.handleBuy.bind(this);
-  }
+export const Shop = () => {
+  const [productsOfBuy, setProductsOfBuy] = useState(INITIAL_STATE);
 
-  handleBuy(productId, value, sumCost) {
-    this.setState((prevState) => ({
+  const handleBuy = (productId, value, sumCost) => {
+    setProductsOfBuy((prevState) => ({
+      ...prevState,
       [productId]: {
         value: prevState[productId].value + value,
         sumCost: prevState[productId].sumCost + sumCost,
       },
       sum: prevState.sum + sumCost,
     }));
-  }
-
-  clearState = () => {
-    this.setState(INITIAL_STATE);
   };
 
-  render() {
-    // throw new Error("hah");
-    return (
-      <div className={style.shop}>
-        {products.map((product) => (
-          <Product product={product} key={product.key} handleChange={this.handleChange} handleBuy={this.handleBuy} />
-        ))}
-        <Cart clearState={this.clearState} products={this.state} />
-      </div>
-    );
-  }
-}
+  const clearState = () => {
+    setProductsOfBuy(INITIAL_STATE);
+  };
+
+  return (
+    <div className={style.shop}>
+      {products.map((product) => (
+        <Product product={product} key={product.key} handleBuy={handleBuy} />
+      ))}
+      <Cart clearState={clearState} products={productsOfBuy} />
+    </div>
+  );
+};
