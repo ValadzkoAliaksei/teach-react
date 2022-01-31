@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 
 import style from './product.module.css';
 
+import { buyProduct } from '../../../store/products/actions';
+
 const INITIAL_STATE = { value: 0, sumCost: 0 };
 
-export const Product = ({ product: { cost, id: productId, title, description, imgSrc }, handleBuy }) => {
+export const Product = ({ product: { cost, id: productId, title, description, imgSrc }, dispatch }) => {
   const [{ value, sumCost }, setProductOfBuy] = useState(INITIAL_STATE);
   const [isDisable, setIsDisable] = useState(false);
 
@@ -20,7 +22,7 @@ export const Product = ({ product: { cost, id: productId, title, description, im
   };
 
   const onBuy = () => {
-    handleBuy(productId, +value, +sumCost);
+    dispatch(buyProduct({ productId, value, sumCost }));
     setProductOfBuy(INITIAL_STATE);
   };
 
@@ -55,5 +57,5 @@ Product.propTypes = {
     cost: PropTypes.number,
     id: PropTypes.string,
   }).isRequired,
-  handleBuy: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };

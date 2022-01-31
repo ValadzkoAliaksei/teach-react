@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { clearProducts } from '../../../store/products/actions';
 
-export const Watch = ({ clearState }) => {
+export const Watch = ({ dispatch }) => {
   const [seconds, setSeconds] = useState(10);
   const intervalRef = useRef();
 
@@ -12,10 +13,10 @@ export const Watch = ({ clearState }) => {
 
   useEffect(() => {
     if (seconds === 0) {
-      clearState();
+      dispatch(clearProducts());
       clearInterval(intervalRef.current);
     }
-  }, [seconds, clearState]);
+  }, [seconds, dispatch]);
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -36,5 +37,5 @@ export const Watch = ({ clearState }) => {
 };
 
 Watch.propTypes = {
-  clearState: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
