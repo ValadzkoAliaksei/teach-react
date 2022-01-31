@@ -15,7 +15,6 @@ export const Watch = ({ clearState }) => {
       clearState();
       clearInterval(intervalRef.current);
     }
-    clearState();
   }, [seconds, clearState]);
 
   useEffect(() => {

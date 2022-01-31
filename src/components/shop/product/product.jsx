@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 import style from './product.module.css';
 
-const INITIAL_STATE = { value: '0', sumCost: '0' };
+const INITIAL_STATE = { value: 0, sumCost: 0 };
 
 export const Product = ({ product: { cost, id: productId, title, description, imgSrc }, handleBuy }) => {
   const [{ value, sumCost }, setProductOfBuy] = useState(INITIAL_STATE);
   const [isDisable, setIsDisable] = useState(false);
 
   const handleChange = (e) => {
+    setIsDisable(true);
     if (+e.target.value >= 0) {
       setProductOfBuy({
         value: +e.target.value,
@@ -24,7 +25,7 @@ export const Product = ({ product: { cost, id: productId, title, description, im
   };
 
   useEffect(() => {
-    if (value === '0') {
+    if (value === 0) {
       setIsDisable(true);
     } else {
       setIsDisable(false);
@@ -39,7 +40,7 @@ export const Product = ({ product: { cost, id: productId, title, description, im
       <div>Стоимость: {cost}евро.</div>
       <input type="number" name={productId} value={value} onChange={handleChange} />
       <div>Общая стоимость: {sumCost}евро.</div>
-      <button onClick={onBuy} type="button" disabled={isDisable} ref={buttonRef}>
+      <button onClick={onBuy} type="button" disabled={isDisable}>
         Купить
       </button>
     </div>
