@@ -1,27 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
+
+import { productItemReducer } from '../../../store/product-item-state';
+import { initialProductItemState } from '../../../store/product-item-state/initial-state';
+import { clearProduct, selectProduct } from '../../../store/product-item-state/actions';
 
 import style from './product.module.css';
 
-const INITIAL_STATE = { value: 0, sumCost: 0 };
-
 export const Product = ({ product: { cost, id: productId, title, description, imgSrc }, handleBuy }) => {
-  const [{ value, sumCost }, setProductOfBuy] = useState(INITIAL_STATE);
+  const [{ value, sumCost }, dispatch] = useReducer(productItemReducer, initialProductItemState);
   const [isDisable, setIsDisable] = useState(false);
 
   const handleChange = (e) => {
     setIsDisable(true);
     if (+e.target.value >= 0) {
-      setProductOfBuy({
-        value: +e.target.value,
-        sumCost: +e.target.value * cost,
-      });
+      dispatch(selectProduct({ value: +e.target.value, sumCost: +e.target.value * cost }));
     }
   };
 
   const onBuy = () => {
     handleBuy(productId, +value, +sumCost);
-    setProductOfBuy(INITIAL_STATE);
+    dispatch(clearProduct());
   };
 
   useEffect(() => {
