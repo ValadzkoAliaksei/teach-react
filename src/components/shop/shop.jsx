@@ -1,35 +1,25 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 
 import { Cart } from './cart';
 import { Product } from './product';
+
+import { productsReducer } from '../../store/products-state';
+import { initialProductsState } from '../../store/products-state/initial-state';
+import { buyProducts, clearProducts } from '../../store/products-state/actions';
 
 import { products } from '../../constants/products';
 
 import style from './shop.module.css';
 
-const INITIAL_STATE = {
-  tv: { value: 0, sumCost: 0 },
-  fridge: { value: 0, sumCost: 0 },
-  washingMashine: { value: 0, sumCost: 0 },
-  sum: 0,
-};
-
 export const Shop = () => {
-  const [productsOfBuy, setProductsOfBuy] = useState(INITIAL_STATE);
+  const [state, dispatch] = useReducer(productsReducer, initialProductsState);
 
   const handleBuy = (productId, value, sumCost) => {
-    setProductsOfBuy((prevState) => ({
-      ...prevState,
-      [productId]: {
-        value: prevState[productId].value + value,
-        sumCost: prevState[productId].sumCost + sumCost,
-      },
-      sum: prevState.sum + sumCost,
-    }));
+    dispatch(buyProducts({ productId, value, sumCost }));
   };
 
   const clearState = () => {
-    setProductsOfBuy(INITIAL_STATE);
+    dispatch(clearProducts());
   };
 
   return (
@@ -37,7 +27,7 @@ export const Shop = () => {
       {products.map((product) => (
         <Product product={product} key={product.key} handleBuy={handleBuy} />
       ))}
-      <Cart clearState={clearState} products={productsOfBuy} />
+      <Cart clearState={clearState} products={state} />
     </div>
   );
 };
