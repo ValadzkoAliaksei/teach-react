@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import { Modal } from '../../modal';
 import { Watch } from '../watch';
+
+import { productsSelector } from '../../../selectors';
 
 import style from './cart.module.css';
 
@@ -10,7 +13,8 @@ const SuccessMessage = () => <div>Покупка совершена успешн
 
 const DeniedMessage = () => <div>Недостаточно денег!</div>;
 
-export const Cart = ({ products: { tv, fridge, washingMashine, sum }, clearState }) => {
+export const Cart = ({ clearState }) => {
+  const { tv, fridge, washingMashine, sum } = useSelector(productsSelector);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const checkCash = () => {
@@ -60,19 +64,4 @@ export const Cart = ({ products: { tv, fridge, washingMashine, sum }, clearState
 
 Cart.propTypes = {
   clearState: PropTypes.func.isRequired,
-  products: PropTypes.shape({
-    tv: PropTypes.shape({
-      value: PropTypes.number,
-      sumCost: PropTypes.number,
-    }),
-    fridge: PropTypes.shape({
-      value: PropTypes.number,
-      sumCost: PropTypes.number,
-    }),
-    washingMashine: PropTypes.shape({
-      value: PropTypes.number,
-      sumCost: PropTypes.number,
-    }),
-    sum: PropTypes.number,
-  }).isRequired,
 };
