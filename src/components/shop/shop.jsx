@@ -1,10 +1,9 @@
 import { useReducer } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Cart } from './cart';
 import { Product } from './product';
 
-import { productsReducer } from '../../store/products-state';
-import { initialProductsState } from '../../store/products-state/initial-state';
 import { buyProducts, clearProducts } from '../../store/products-state/actions';
 
 import { products } from '../../constants/products';
@@ -12,7 +11,7 @@ import { products } from '../../constants/products';
 import style from './shop.module.css';
 
 export const Shop = () => {
-  const [state, dispatch] = useReducer(productsReducer, initialProductsState);
+  const dispatch = useDispatch();
 
   const handleBuy = (productId, value, sumCost) => {
     dispatch(buyProducts({ productId, value, sumCost }));
@@ -27,7 +26,7 @@ export const Shop = () => {
       {products.map((product) => (
         <Product product={product} key={product.key} handleBuy={handleBuy} />
       ))}
-      <Cart clearState={clearState} products={state} />
+      <Cart clearState={clearState} />
     </div>
   );
 };

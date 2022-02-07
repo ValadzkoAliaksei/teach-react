@@ -1,7 +1,7 @@
 import { TYPES } from '../action-types';
 import { initialProductsState } from './initial-state';
 
-export const productsReducer = (prevState, action) => {
+export const productsReducer = (prevState = initialProductsState, action = {}) => {
   switch (action.type) {
     case TYPES.BUY_PRODUCTS: {
       const { productId, value, sumCost } = action.payload;
@@ -18,6 +18,6 @@ export const productsReducer = (prevState, action) => {
       return initialProductsState;
 
     default:
-      throw new Error();
+      return prevState;
   }
 };
