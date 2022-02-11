@@ -1,10 +1,9 @@
-import { useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Cart } from './cart';
 import { Product } from './product';
 
-import { buyProducts, clearProducts } from '../../store/products-state/actions';
+import { buyProducts, clearProducts } from '../../store/products-state';
 
 import { products } from '../../constants/products';
 

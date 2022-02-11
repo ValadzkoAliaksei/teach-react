@@ -1,22 +1,19 @@
-import { TYPES } from '../action-types';
+/* eslint-disable no-param-reassign */
+import { createSlice } from '@reduxjs/toolkit';
 import { initialSelectProductsState } from './initial-state';
 
-export const selectProductsReducer = (prevState = initialSelectProductsState, action = {}) => {
-  switch (action.type) {
-    case TYPES.SELECT_PRODUCT: {
+const selectProductsSlice = createSlice({
+  name: 'selectProductsReducer',
+  initialState: initialSelectProductsState,
+  reducers: {
+    selectProduct: (state, action) => {
       const { productId, value, sumCost } = action.payload;
-      return {
-        ...prevState,
-        [productId]: {
-          value,
-          sumCost,
-        },
-      };
-    }
-    case TYPES.CLEAR_PRODUCT:
-      return initialSelectProductsState;
+      state[productId].value = value;
+      state[productId].sumCost = sumCost;
+    },
+    clearProduct: () => initialSelectProductsState,
+  },
+});
 
-    default:
-      return prevState;
-  }
-};
+export const { selectProduct, clearProduct } = selectProductsSlice.actions;
+export default selectProductsSlice.reducer;

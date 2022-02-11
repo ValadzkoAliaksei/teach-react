@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { clearProduct, selectProduct } from '../../../store/select-products-state/actions';
+import { clearProduct, selectProduct } from '../../../store/select-products-state';
 
 import style from './product.module.css';
 import { selectedProductsSelector } from '../../../selectors';
