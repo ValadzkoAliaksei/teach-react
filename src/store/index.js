@@ -1,9 +1,11 @@
-import { combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 
-import { productsReducer } from './products-state';
-import { selectProductsReducer } from './select-products-state';
+import productsReducer from './products-state';
+import selectProductsReducer from './select-products-state';
 
-export const reducer = combineReducers({
-  productsReducer,
-  selectProductsReducer,
+export const store = configureStore({
+  reducer: {
+    productsReducer,
+    selectProductsReducer,
+  },
 });
