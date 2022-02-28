@@ -22,4 +22,6 @@
   background: #fff;
   padding: 16px;
   z-index: 2;
+  border-radius: 4px;
+  font-size: 24px;
 }

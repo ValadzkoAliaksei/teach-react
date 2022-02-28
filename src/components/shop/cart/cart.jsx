@@ -4,12 +4,11 @@ import { useSelector } from 'react-redux';
 
 import { Modal } from '../../modal';
 import { Watch } from '../watch';
+import { Deal } from '../deal';
 
 import { productsSelector } from '../../../selectors';
 
 import style from './cart.module.css';
-
-const SuccessMessage = () => <div>Покупка совершена успешно!</div>;
 
 const DeniedMessage = () => <div>Недостаточно денег!</div>;
 
@@ -54,10 +53,10 @@ export const Cart = ({ clearState }) => {
         </span>
       </div>
 
-      <button onClick={checkCash} type="button">
+      <button onClick={checkCash} type="button" disabled={sum === 0}>
         Рассчитаться
       </button>
-      {isModalVisible && <Modal closeModal={closeModal}>{sum > 3000 ? <DeniedMessage /> : <SuccessMessage />}</Modal>}
+      {isModalVisible && <Modal closeModal={closeModal}>{sum > 3000 ? <DeniedMessage /> : <Deal />}</Modal>}
     </div>
   );
 };
