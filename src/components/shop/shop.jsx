@@ -5,7 +5,7 @@ import { Cart } from './cart';
 import { Product } from './product';
 
 import { buyProducts, clearProducts } from '../../store/products-state';
-import { getStorage } from '../../store/storage-state/thunk';
+import { getStorageRequest } from '../../store/storage2-state';
 
 import { products } from '../../constants/products';
 
@@ -25,7 +25,7 @@ export const Shop = () => {
   };
 
   useEffect(() => {
-    dispatch(getStorage());
+    dispatch(getStorageRequest());
   }, []);
 
   return !isLoading ? (
