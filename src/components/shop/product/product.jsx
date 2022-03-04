@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Button, Image, InputNumber } from 'antd';
 
 import { clearProduct, selectProduct } from '../../../store/select-products-state';
 
@@ -11,39 +12,37 @@ export const Product = ({ product: { cost, id: productId, title, description, im
   const dispatch = useDispatch();
   const [isDisable, setIsDisable] = useState(false);
 
-  const { value, sumCost } = useSelector((state) => selectedProductsSelector(state, productId));
+  const { value: valueState, sumCost } = useSelector((state) => selectedProductsSelector(state, productId));
 
-  const handleChange = (e) => {
+  const handleChange = (value) => {
     setIsDisable(true);
-    if (+e.target.value >= 0) {
-      dispatch(selectProduct({ value: +e.target.value, sumCost: +e.target.value * cost, productId }));
-    }
+    dispatch(selectProduct({ value, sumCost: value * cost, productId }));
   };
 
   const onBuy = () => {
-    handleBuy(productId, +value, +sumCost);
+    handleBuy(productId, +valueState, +sumCost);
     dispatch(clearProduct());
   };
 
   useEffect(() => {
-    if (value === 0) {
+    if (valueState === 0) {
       setIsDisable(true);
     } else {
       setIsDisable(false);
     }
-  }, [value]);
+  }, [valueState]);
 
   return (
     <div className={style.product}>
       <div>Товар: {title}</div>
       <div>Марка: {description}</div>
-      <img src={imgSrc} width={300} alt="foto" />
+      <Image width={200} src={imgSrc} />
       <div>Стоимость: {cost}евро.</div>
-      <input type="number" name={productId} value={value} onChange={handleChange} />
+      <InputNumber min={0} onChange={handleChange} defaultValue={0} value={valueState} addonAfter="шт." />
       <div>Общая стоимость: {sumCost}евро.</div>
-      <button onClick={onBuy} type="button" disabled={isDisable}>
+      <Button onClick={onBuy} disabled={isDisable}>
         Купить
-      </button>
+      </Button>
     </div>
   );
 };
