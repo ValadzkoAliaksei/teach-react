@@ -5,7 +5,7 @@ import { lendingText } from '../../constants/lending-text';
 
 import styles from './lending.module.css';
 
-export const Lending = () => (
+export const Lending = (): JSX.Element => (
   <div className={styles.lending}>
     <header className={styles.header}>
       <div className={styles.orange}>{lendingText.logo}</div>

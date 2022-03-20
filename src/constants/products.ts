@@ -1,4 +1,6 @@
-export const products = [
+import type { ProductsType } from 'types/products-type';
+
+export const products: ProductsType[] = [
   {
     title: 'Телевизор',
     id: 'tv',

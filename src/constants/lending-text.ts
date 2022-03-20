@@ -1,4 +1,6 @@
-export const lendingText = {
+import type { LandingTextType } from '../types/landing-text-type';
+
+export const lendingText: LandingTextType = {
   logo: 'logo',
   nav: 'nav',
   mainAtrticles: [

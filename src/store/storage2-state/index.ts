@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { initialStorage2State } from './initial-state';
 
 const storage2Slice = createSlice({
@@ -11,7 +11,7 @@ const storage2Slice = createSlice({
       state.isError = false;
       state.data = initialStorage2State.data;
     },
-    getStorageSuccess: (state, action) => {
+    getStorageSuccess: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.data = action.payload;
     },

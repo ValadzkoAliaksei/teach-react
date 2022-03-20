@@ -1,20 +1,19 @@
-import { useDispatch, useSelector } from 'react-redux';
-
 import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from 'utils/hooks';
 import { Cart } from './cart';
 import { Product } from './product';
 
 import { buyProducts, clearProducts } from '../../store/products-state';
 import { getStorageRequest } from '../../store/storage2-state';
+import { storageSelector } from '../../selectors';
 
 import { products } from '../../constants/products';
 
 import style from './shop.module.css';
-import { storageSelector } from '../../selectors';
 
-export const Shop = () => {
-  const dispatch = useDispatch();
-  const { isLoading, isError, data } = useSelector(storageSelector);
+export const Shop = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const { isLoading, isError, data } = useAppSelector(storageSelector);
 
   const handleBuy = (productId, value, sumCost) => {
     dispatch(buyProducts({ productId, value, sumCost }));

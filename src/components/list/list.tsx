@@ -1,6 +1,6 @@
 import { usersMessages } from '../../constants/users-messages';
 
-export const List = () => (
+export const List = (): JSX.Element => (
   <ol>
     {usersMessages.map(({ id, userId, title, body }) => (
       <li key={id}>

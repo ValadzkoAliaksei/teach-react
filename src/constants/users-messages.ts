@@ -1,4 +1,6 @@
-export const usersMessages = [
+import type { UsersMessageType } from 'types/user-message-type';
+
+export const usersMessages: UsersMessageType[] = [
   {
     userId: 1,
     id: 1,

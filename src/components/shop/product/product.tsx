@@ -1,20 +1,29 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Button, Image, InputNumber } from 'antd';
 
+import type { ProductsType } from 'types/products-type';
+import { useAppDispatch, useAppSelector } from 'utils/hooks';
 import { clearProduct, selectProduct } from '../../../store/select-products-state';
 
-import style from './product.module.css';
 import { selectedProductsSelector } from '../../../selectors';
 
-export const Product = ({ product: { cost, id: productId, title, description, imgSrc }, handleBuy }) => {
-  const dispatch = useDispatch();
+import style from './product.module.css';
+
+type ProductPropType = {
+  handleBuy: (productId: string, valueState: number, sumCost: number) => void;
+  product: ProductsType;
+};
+
+export const Product = ({
+  product: { cost, id: productId, title, description, imgSrc },
+  handleBuy,
+}: ProductPropType): JSX.Element => {
+  const dispatch = useAppDispatch();
   const [isDisable, setIsDisable] = useState(false);
 
-  const { value: valueState, sumCost } = useSelector((state) => selectedProductsSelector(state, productId));
+  const { value: valueState, sumCost } = useAppSelector((state) => selectedProductsSelector(state, productId));
 
-  const handleChange = (value) => {
+  const handleChange = (value: number) => {
     setIsDisable(true);
     dispatch(selectProduct({ value, sumCost: value * cost, productId }));
   };
@@ -45,15 +54,4 @@ export const Product = ({ product: { cost, id: productId, title, description, im
       </Button>
     </div>
   );
-};
-
-Product.propTypes = {
-  product: PropTypes.shape({
-    title: PropTypes.string,
-    description: PropTypes.string,
-    imgSrc: PropTypes.string,
-    cost: PropTypes.number,
-    id: PropTypes.string,
-  }).isRequired,
-  handleBuy: PropTypes.func.isRequired,
 };

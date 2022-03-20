@@ -3,13 +3,13 @@ import { Messages } from '../messages';
 import { List } from '../list';
 import { Table } from '../table';
 import { Shop } from '../shop';
+import { ErrorBoundary } from '../error-boundary';
 
 import logo from './assets/logo.svg';
 
 import './app.css';
-import { ErrorBoundary } from '../error-boundary';
 
-export const App = () => {
+export const App = (): JSX.Element => {
   const messagesVisible = false;
   const lendingVisible = false;
   const logoVisible = false;
