@@ -1,11 +1,12 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Button, Checkbox, Form, Input } from 'antd';
+import PropTypes from 'prop-types';
 
 import style from './deal.module.css';
 
-export const Deal = () => {
-  const handleSubmit = (values, { setSubmitting }) => {
+export const Deal = ({ closeModal }) => {
+  const handleSubmit = (values) => {
     console.log(values);
-    setSubmitting(false);
+    closeModal();
   };
 
   const validate = (values) => {
@@ -24,24 +25,40 @@ export const Deal = () => {
   return (
     <div className={style.deal}>
       <h2>Оформите заказ</h2>
-      <Formik initialValues={{ email: '', name: '', phone: '' }} validate={validate} onSubmit={handleSubmit}>
-        {({ isSubmitting }) => (
-          <Form className={style.form}>
-            <label htmlFor="email">Почта</label>
-            <Field type="email" name="email" id="email" />
+      <Form initialValues={{ remember: true }} onFinish={handleSubmit}>
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[{ required: true, message: 'Please input your username!' }]}
+        >
+          <Input />
+        </Form.Item>
 
-            <ErrorMessage name="email" component="div" />
-            <label htmlFor="name"> Имя </label>
-            <Field name="name" id="name" />
-            <ErrorMessage name="name" component="div" />
-            <label htmlFor="phone"> Телефон </label>
-            <Field name="phone" id="phone" />
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </Form>
-        )}
-      </Formik>
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: 'Please input your password!' }]}
+        >
+          <Input.Password />
+        </Form.Item>
+        <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
+          <Input />
+        </Form.Item>
+
+        <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
+};
+
+Deal.propTypes = {
+  closeModal: PropTypes.func.isRequired,
 };

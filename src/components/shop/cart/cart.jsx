@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { Button, Modal } from 'antd';
 
-import { Modal } from '../../modal';
 import { Watch } from '../watch';
 import { Deal } from '../deal';
 
@@ -53,10 +53,12 @@ export const Cart = ({ clearState }) => {
         </span>
       </div>
 
-      <button onClick={checkCash} type="button" disabled={sum === 0}>
+      <Button onClick={checkCash} type="primary" disabled={sum === 0}>
         Рассчитаться
-      </button>
-      {isModalVisible && <Modal closeModal={closeModal}>{sum > 3000 ? <DeniedMessage /> : <Deal />}</Modal>}
+      </Button>
+      <Modal closeModal={closeModal} visible={isModalVisible} onCancel={closeModal} footer={null}>
+        {sum > 3000 ? <DeniedMessage /> : <Deal closeModal={closeModal} />}
+      </Modal>
     </div>
   );
 };

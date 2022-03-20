@@ -7,6 +7,8 @@ import { App } from './components/app';
 import { store } from './store';
 
 import reportWebVitals from './reportWebVitals';
+
+import 'antd/dist/antd.less';
 import './index.css';
 
 ReactDOM.render(
