@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 type TableRowPropType = {
   dataRow: Array<string | number>;
   th?: boolean;

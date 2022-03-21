@@ -1,1 +1,1 @@
-export { Message2 } from './message2';
+export { Messag2 } from './messag2';

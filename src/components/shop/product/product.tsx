@@ -29,7 +29,7 @@ export const Product = ({
   };
 
   const onBuy = () => {
-    handleBuy(productId, +valueState, +sumCost);
+    handleBuy(productId, valueState, sumCost);
     dispatch(clearProduct());
   };
 

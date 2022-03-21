@@ -1,13 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-export class ErrorBoundary extends React.Component {
-  constructor(props) {
+type ErrorBoundaryStateType = {
+  hasError: boolean;
+};
+
+type ErrorBoundaryPropsType = {
+  children: JSX.Element;
+};
+
+interface Error {
+  stack?: string;
+}
+
+export class ErrorBoundary extends React.Component<ErrorBoundaryPropsType, ErrorBoundaryStateType> {
+  constructor(props: ErrorBoundaryPropsType) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: Error) {
     // Обновить состояние с тем, чтобы следующий рендер показал запасной UI.
     return { hasError: true };
   }
@@ -28,7 +39,3 @@ export class ErrorBoundary extends React.Component {
     return children;
   }
 }
-
-ErrorBoundary.propTypes = {
-  children: PropTypes.element.isRequired,
-};

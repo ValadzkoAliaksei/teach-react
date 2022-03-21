@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { StorageType } from 'types/initial-storage-state-type';
 import { initialStorageState } from './initial-state';
 import { getStorage } from './thunk';
 
@@ -13,7 +14,7 @@ const storageSlice = createSlice({
       state.isError = false;
       state.data = initialStorageState.data;
     });
-    builder.addCase(getStorage.fulfilled.type, (state, action) => {
+    builder.addCase(getStorage.fulfilled.type, (state, action: PayloadAction<StorageType>) => {
       state.isLoading = false;
       state.data = action.payload;
     });

@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import { Button, Modal } from 'antd';
 
+import { useAppSelector } from 'utils/hooks';
 import { Watch } from '../watch';
 import { Deal } from '../deal';
 
@@ -10,10 +9,14 @@ import { productsSelector } from '../../../selectors';
 
 import style from './cart.module.css';
 
+type CartPropsType = {
+  clearState: () => void;
+};
+
 const DeniedMessage = () => <div>Недостаточно денег!</div>;
 
-export const Cart = ({ clearState }) => {
-  const { tv, fridge, washingMashine, sum } = useSelector(productsSelector);
+export const Cart = ({ clearState }: CartPropsType) => {
+  const { tv, fridge, washingMashine, sum } = useAppSelector(productsSelector);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const checkCash = () => {
@@ -56,13 +59,9 @@ export const Cart = ({ clearState }) => {
       <Button onClick={checkCash} type="primary" disabled={sum === 0}>
         Рассчитаться
       </Button>
-      <Modal closeModal={closeModal} visible={isModalVisible} onCancel={closeModal} footer={null}>
+      <Modal visible={isModalVisible} onCancel={closeModal} footer={null}>
         {sum > 3000 ? <DeniedMessage /> : <Deal closeModal={closeModal} />}
       </Modal>
     </div>
   );
-};
-
-Cart.propTypes = {
-  clearState: PropTypes.func.isRequired,
 };

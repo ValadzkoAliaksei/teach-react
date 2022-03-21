@@ -1,4 +1,4 @@
-export const Message2 = () => (
+export const Messag2 = () => (
   <>
     <h2 align="center">Продам картину &quot;Дерево жизни&quot;!</h2>
     <p align="center">

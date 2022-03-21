@@ -1,11 +1,15 @@
 import { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-export const Watch = ({ clearState }) => {
-  const [seconds, setSeconds] = useState(10);
-  const intervalRef = useRef();
+type WatchPropsType = {
+  clearState: () => void;
+};
 
-  const formatTime = (num) => {
+export const Watch: React.FC<WatchPropsType> = ({ clearState }) => {
+  const [seconds, setSeconds] = useState(10);
+  const intervalRef = useRef<number>();
+
+  const formatTime = (num: number) => {
     if (num < 10) return `0${num}`;
     return num;
   };
@@ -13,17 +17,17 @@ export const Watch = ({ clearState }) => {
   useEffect(() => {
     if (seconds === 0) {
       clearState();
-      clearInterval(intervalRef.current);
+      window.clearInterval(intervalRef.current);
     }
   }, [seconds, clearState]);
 
   useEffect(() => {
-    const timerId = setInterval(() => {
+    const timerId = window.setInterval(() => {
       setSeconds((prevSeconds) => prevSeconds - 1);
     }, 1000);
     intervalRef.current = timerId;
     return () => {
-      clearInterval(intervalRef.current);
+      window.clearInterval(intervalRef.current);
     };
   }, []);
 

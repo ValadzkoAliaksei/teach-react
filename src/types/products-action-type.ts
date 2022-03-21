@@ -1,5 +1,5 @@
 export type ProductsActionType = {
   productId: string;
-  value: string;
+  value: number;
   sumCost: number;
 };

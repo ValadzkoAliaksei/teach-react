@@ -1,23 +1,44 @@
 import { Button, Checkbox, Form, Input } from 'antd';
-import PropTypes from 'prop-types';
 
 import style from './deal.module.css';
 
-export const Deal = ({ closeModal }) => {
-  const handleSubmit = (values) => {
+type DealPropsType = {
+  closeModal: () => void;
+};
+
+type initialFormValuesType = {
+  remember: boolean;
+  username: string;
+  password: string;
+  email: string;
+};
+
+type FormErrorsType = {
+  username?: string;
+  email?: string;
+};
+
+export const Deal = ({ closeModal }: DealPropsType) => {
+  const initialFormValues: initialFormValuesType = {
+    remember: true,
+    username: '',
+    password: '',
+    email: '',
+  };
+  const handleSubmit = (values: initialFormValuesType) => {
     console.log(values);
     closeModal();
   };
 
-  const validate = (values) => {
-    const errors = {};
+  const validate = (values: initialFormValuesType) => {
+    const errors = {} as FormErrorsType;
     if (!values.email) {
       errors.email = 'Поле обязательно';
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
       errors.email = 'Ошибка адреса';
     }
-    if (!values.name) {
-      errors.name = 'Поле обязательно';
+    if (!values.username) {
+      errors.username = 'Поле обязательно';
     }
     return errors;
   };
@@ -25,7 +46,7 @@ export const Deal = ({ closeModal }) => {
   return (
     <div className={style.deal}>
       <h2>Оформите заказ</h2>
-      <Form initialValues={{ remember: true }} onFinish={handleSubmit}>
+      <Form initialValues={initialFormValues} onFinish={handleSubmit}>
         <Form.Item
           label="Username"
           name="username"
@@ -57,8 +78,4 @@ export const Deal = ({ closeModal }) => {
       </Form>
     </div>
   );
-};
-
-Deal.propTypes = {
-  closeModal: PropTypes.func.isRequired,
 };
